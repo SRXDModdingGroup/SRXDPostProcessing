@@ -31,6 +31,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <DocumentationFile>bin\Release\SRXDPostProcessing.xml</DocumentationFile>
     </PropertyGroup>
     <PropertyGroup>
       <PostBuildEvent>copy /Y "C:\Users\domia\Git\SRXDPostProcessing\bin\Release\SRXDPostProcessing.dll" "C:\Program Files (x86)\Steam\steamapps\common\Spin Rhythm\BepInEx\plugins"</PostBuildEvent>

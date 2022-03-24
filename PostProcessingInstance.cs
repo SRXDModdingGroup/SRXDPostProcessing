@@ -3,15 +3,36 @@ using UnityEngine;
 
 namespace SRXDPostProcessing; 
 
+/// <summary>
+/// An instance of a post processing effect
+/// </summary>
 public class PostProcessingInstance : IComparable<PostProcessingInstance> {
-    public bool Enabled { get; set; } = true;
+    /// <summary>
+    /// Set this to enable or disable the effect
+    /// </summary>
+    public bool Enabled { get; set; }
     
+    /// <summary>
+    /// The material to apply to the render target
+    /// </summary>
+    /// <remarks>Shader used by the material must have a _MainTex texture parameter as input, and may also have an _Aspect float parameter to get the camera's aspect ratio</remarks>
     public Material Material { get; }
     
+    /// <summary>
+    /// The priority of the effect. Effects with a lower priority value will be applied first
+    /// </summary>
     public int Priority { get; }
 
-    public PostProcessingInstance(Material material, int priority) {
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="material">The material to apply to the render target</param>
+    /// <param name="enabled">If true, the effect will be enabled immediately</param>
+    /// <param name="priority">The priority of the effect. Effects with a lower priority value will be applied first</param>
+    /// <remarks>Shader used by the material must have a _MainTex texture parameter as input, and may also have an _Aspect float parameter to get the camera's aspect ratio</remarks>
+    public PostProcessingInstance(Material material, bool enabled = false, int priority = 0) {
         Material = material;
+        Enabled = enabled;
         Priority = priority;
     }
 
