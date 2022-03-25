@@ -19,6 +19,11 @@ public class PostProcessingInstance : IComparable<PostProcessingInstance> {
     public Material Material { get; }
     
     /// <summary>
+    /// The layer to apply the effect to
+    /// </summary>
+    public PostProcessingLayer Layer { get; }
+    
+    /// <summary>
     /// The priority of the effect. Effects with a lower priority value will be applied first
     /// </summary>
     public int Priority { get; }
@@ -28,11 +33,13 @@ public class PostProcessingInstance : IComparable<PostProcessingInstance> {
     /// </summary>
     /// <param name="material">The material to apply to the render target</param>
     /// <param name="enabled">If true, the effect will be enabled immediately</param>
+    /// <param name="layer">The layer to apply the effect to</param>
     /// <param name="priority">The priority of the effect. Effects with a lower priority value will be applied first</param>
     /// <remarks>Shader used by the material must have a _MainTex texture parameter as input, and may also have an _Aspect float parameter to get the camera's aspect ratio</remarks>
-    public PostProcessingInstance(Material material, bool enabled = false, int priority = 0) {
+    public PostProcessingInstance(Material material, bool enabled = false, PostProcessingLayer layer = PostProcessingLayer.Foreground, int priority = 0) {
         Material = material;
         Enabled = enabled;
+        Layer = layer;
         Priority = priority;
     }
 

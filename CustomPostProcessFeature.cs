@@ -22,6 +22,7 @@ internal class CustomPostProcessFeature : ScriptableRendererFeature {
         private RenderTargetHandle tempTexture2;
         private float aspect;
         private bool shouldProcess;
+        private PostProcessingLayer targetLayer;
 
         public CustomPostProcessPass() {
             tempTexture1.Init("_tempTexture1");
@@ -33,13 +34,18 @@ internal class CustomPostProcessFeature : ScriptableRendererFeature {
             var cameraData = renderingData.cameraData;
             var camera = cameraData.camera;
             
-            shouldProcess = mainCamera != null && camera == mainCamera.CurrentCamera;
+            shouldProcess = mainCamera != null && (camera == mainCamera.CurrentCamera || camera == mainCamera.backgroundCamera);
             
             if (!shouldProcess)
                 return;
-
+            
             cameraColorTarget = cameraData.renderer.cameraColorTarget;
             aspect = camera.aspect;
+
+            if (camera == mainCamera.CurrentCamera)
+                targetLayer = PostProcessingLayer.Foreground;
+            else
+                targetLayer = PostProcessingLayer.Background;
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
@@ -58,7 +64,7 @@ internal class CustomPostProcessFeature : ScriptableRendererFeature {
             var destination = tempTexture2.Identifier();
 
             foreach (var instance in PostProcessingManager.PostProcessingInstances) {
-                if (!instance.Enabled)
+                if (!instance.Enabled || instance.Layer != targetLayer)
                     continue;
 
                 var material = instance.Material;

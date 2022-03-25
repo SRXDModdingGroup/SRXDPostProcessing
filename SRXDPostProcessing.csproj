@@ -66,6 +66,7 @@
         <Compile Include="Patches.cs" />
         <Compile Include="Plugin.cs" />
         <Compile Include="PostProcessingInstance.cs" />
+        <Compile Include="PostProcessingLayer.cs" />
         <Compile Include="PostProcessingManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
