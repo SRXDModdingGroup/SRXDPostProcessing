@@ -6,7 +6,7 @@ namespace SRXDPostProcessing;
 /// <summary>
 /// An instance of a post processing effect
 /// </summary>
-public class PostProcessingInstance : IComparable<PostProcessingInstance> {
+public class PostProcessingInstance {
     /// <summary>
     /// Set this to enable or disable the effect
     /// </summary>
@@ -42,6 +42,4 @@ public class PostProcessingInstance : IComparable<PostProcessingInstance> {
         Layer = layer;
         Priority = priority;
     }
-
-    public int CompareTo(PostProcessingInstance other) => Priority.CompareTo(other.Priority);
 }

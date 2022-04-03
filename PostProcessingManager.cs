@@ -13,12 +13,19 @@ public static class PostProcessingManager {
     /// </summary>
     /// <param name="instance">The instance to add</param>
     public static void AddPostProcessingInstance(PostProcessingInstance instance) {
-        int index = PostProcessingInstances.BinarySearch(instance);
-
-        if (index >= 0)
+        if (PostProcessingInstances.Contains(instance))
             return;
         
-        PostProcessingInstances.Insert(~index, instance);
+        for (int i = 0; i < PostProcessingInstances.Count; i++) {
+            if (instance.Priority > PostProcessingInstances[i].Priority)
+                continue;
+            
+            PostProcessingInstances.Insert(i, instance);
+                
+            return;
+        }
+
+        PostProcessingInstances.Add(instance);
     }
 
     /// <summary>
